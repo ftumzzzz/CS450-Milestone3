@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import React from 'react';
+import Filters from './Filters';
+import Heatmap from './Heatmap';
+import PieChart from './PieChart';
+import TreeDiagram from './TreeDiagram';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="dashboard-container">
+      <header className="dashboard-header">
+        <h1>Heart Attack Risk Dashboard</h1>
       </header>
+      <div className="dashboard">
+        <div className="left-panel">
+          <Filters />
+        </div>
+        <div className="right-panel">
+          <div className="top-chart">
+            <Heatmap />
+          </div>
+          <div className="bottom-charts">
+            <PieChart />
+            <TreeDiagram />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
