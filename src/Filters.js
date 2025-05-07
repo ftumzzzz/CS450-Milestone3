@@ -1,12 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-function Filters() {
-  const [age, setAge] = useState(50);
-  const [column, setColumn] = useState("physical_activity");
-
-  const handleAgeChange = (e) => setAge(e.target.value);
-  const handleColumnChange = (e) => setColumn(e.target.value);
-
+function Filters({ age, setAge, selectedColumn, setSelectedColumn }) {
   return (
     <div>
       <h2>Filters</h2>
@@ -17,12 +11,12 @@ function Filters() {
         min="10"
         max="100"
         value={age}
-        onChange={handleAgeChange}
+        onChange={e => setAge(+e.target.value)}
       />
-      <p>Age: {age}</p>
+      <p>Age ≤ {age}</p>
 
       <label>Column of Interest:</label>
-      <select value={column} onChange={handleColumnChange}>
+      <select value={selectedColumn} onChange={e => setSelectedColumn(e.target.value)}>
         <option value="physical_activity">Physical Activity</option>
         <option value="stress_level">Stress Level</option>
         <option value="smoking_status">Smoking Status</option>
