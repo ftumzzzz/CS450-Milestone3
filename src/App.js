@@ -79,7 +79,7 @@ function App() {
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
-        <h1>Heart Attack Risk Dashboard</h1>
+        <h1>Heart Attack Risk in Indonesia</h1>
       </header>
       <div className="dashboard">
         <div className="left-panel">
@@ -98,13 +98,13 @@ function App() {
             <ScatterPlot data={filteredData} xVar={xVar} yVar={yVar} />
           </div>
           <div className="bottom-charts">
-  <div className="pie-chart-container">
-    <PieChart data={filteredData} selectedColumn={selectedColumn} />
-  </div>
-  <div className="tree-diagram-container">
-    <TreeDiagram />
-  </div>
-</div>
+            <div className="pie-chart-container">
+              <PieChart data={filteredData} selectedColumn={selectedColumn} />
+            </div>
+            <div className="tree-diagram-container">
+              <TreeDiagram />
+            </div>
+          </div>
 
         </div>
       </div>
