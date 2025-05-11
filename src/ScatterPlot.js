@@ -3,7 +3,6 @@ import * as d3 from 'd3';
 
 function ScatterPlot({ data, xVar, yVar }) {
   const svgRef = useRef();
-  const zoomRef = useRef();
 
   useEffect(() => {
     const svg = d3.select(svgRef.current);

@@ -66,7 +66,7 @@ function PieChart({ data, selectedColumn }) {
       .attr("x", width / 2)
       .attr("y", 20)
       .attr("text-anchor", "middle")
-      .style("font-size", "16px")
+      .style("font-size", "14px")
       .style("font-weight", "bold")
       .text(`Heart Attack Cases of ${selectedColumn.replace(/_/g, " ")}`);
 

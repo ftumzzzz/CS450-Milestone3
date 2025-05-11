@@ -26,7 +26,7 @@ function Filters({
       {/* Pie Chart Column Selection */}
       <label>Column of Interest:</label>
       <select value={selectedColumn} onChange={e => setSelectedColumn(e.target.value)}>
-        {variableOptions.map(v => (
+        {pieVariableOptions.map(v => (
           <option key={v} value={v}>{v}</option>
         ))}
       </select>
