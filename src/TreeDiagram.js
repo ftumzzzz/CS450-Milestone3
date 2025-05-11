@@ -6,20 +6,32 @@ function TreeDiagram() {
 
   useEffect(() => {
     const data = {
-      name: "Risk Factors",
+      name: "Heart Attack Risk",
       children: [
         {
-          name: "Smoking",
+          name: "Smoker",
           children: [
-            { name: "Yes → High Risk" },
-            { name: "No" }
+            {
+              name: "Poor Diet",
+              children: [{ name: "Higher Risk" }]
+            },
+            {
+              name: "No Exercise",
+              children: [{ name: "Higher Risk" }]
+            }
           ]
         },
         {
-          name: "Physical Activity",
+          name: "Non-Smoker",
           children: [
-            { name: "Low → High Risk" },
-            { name: "High" }
+            {
+              name: "Good Diet",
+              children: [{ name: "Lower Risk" }]
+            },
+            {
+              name: "Regular Exercise",
+              children: [{ name: "Lower Risk" }]
+            }
           ]
         }
       ]
@@ -28,18 +40,27 @@ function TreeDiagram() {
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
 
-    const width = 400;
-    const height = 300;
+    const width = 600;
+    const height = 500;
 
     const root = d3.hierarchy(data);
-    const treeLayout = d3.tree().size([width - 80, height - 80]);
+    const treeLayout = d3.tree().nodeSize([70, 60]); // closer spacing
     treeLayout(root);
+
+    const nodes = root.descendants();
+    const minX = d3.min(nodes, d => d.x);
+    const maxX = d3.max(nodes, d => d.x);
+    const offsetX = (width - (maxX - minX)) / 2 - minX;
 
     const g = svg
       .attr("width", width)
       .attr("height", height)
+      .style("max-width", "100%")
+      .style("height", "auto")
+      .style("display", "block")
+      .style("margin", "0 auto")
       .append("g")
-      .attr("transform", "translate(40, 40)");
+      .attr("transform", `translate(${offsetX}, 40)`);
 
     // Links
     g.selectAll("line")
@@ -52,25 +73,30 @@ function TreeDiagram() {
       .attr("y2", d => d.target.y)
       .attr("stroke", "#999");
 
-    // Nodes
-    g.selectAll("circle")
-      .data(root.descendants())
+    // Rectangles
+    g.selectAll("rect")
+      .data(nodes)
       .enter()
-      .append("circle")
-      .attr("cx", d => d.x)
-      .attr("cy", d => d.y)
-      .attr("r", 5)
-      .attr("fill", "#69b3a2");
+      .append("rect")
+      .attr("x", d => d.x - 50)
+      .attr("y", d => d.y - 20)
+      .attr("width", 100)
+      .attr("height", 40)
+      .attr("fill", "#66b3ff")
+      .attr("stroke", "#333")
+      .attr("rx", 6);
 
     // Labels
     g.selectAll("text")
-      .data(root.descendants())
+      .data(nodes)
       .enter()
       .append("text")
-      .attr("x", d => d.x + 8)
+      .attr("x", d => d.x)
       .attr("y", d => d.y + 5)
-      .text(d => d.data.name)
-      .style("font-size", "12px");
+      .attr("text-anchor", "middle")
+      .style("font-size", "12px")
+      .style("fill", "#000")
+      .text(d => d.data.name);
   }, []);
 
   return <svg ref={svgRef}></svg>;

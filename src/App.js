@@ -85,9 +85,14 @@ function App() {
             <ScatterPlot data={filteredData} />
           </div>
           <div className="bottom-charts">
-            <PieChart data={filteredData} selectedColumn={selectedColumn} />
-            <TreeDiagram data={filteredData} />
-          </div>
+  <div className="pie-chart-container">
+    <PieChart data={filteredData} selectedColumn={selectedColumn} />
+  </div>
+  <div className="tree-diagram-container">
+    <TreeDiagram />
+  </div>
+</div>
+
         </div>
       </div>
     </div>

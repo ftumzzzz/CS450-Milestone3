@@ -40,10 +40,34 @@
 
 .bottom-charts {
   display: flex;
-  height: 50%;
-  gap: 1rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
 }
+
+
 
 .bottom-charts > div {
   flex: 1;
 }
+
+.pie-chart-container,
+.tree-diagram-container {
+  flex: 1;
+  min-width: 300px;
+}
+.pie-chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 350px;
+}
+
+.tree-diagram-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+}
+
