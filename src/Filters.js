@@ -1,6 +1,17 @@
 import React from 'react';
 
-function Filters({ age, setAge, selectedColumn, setSelectedColumn }) {
+function Filters({
+  age, setAge,
+  selectedColumn, setSelectedColumn,
+  xVar, setXVar,
+  yVar, setYVar
+}) {
+  const variableOptions = [
+    "age", "stress_level", "sleep_hours", "cholesterol_level",
+    "obesity", "physical_activity", "alcohol_consumption", "income_level",
+    "smoking_status", "air_pollution_exposure", "dietary_habits", "family_history"
+  ];
+
   return (
     <div>
       <h2>Filters</h2>
@@ -17,20 +28,29 @@ function Filters({ age, setAge, selectedColumn, setSelectedColumn }) {
 
       <label>Column of Interest:</label>
       <select value={selectedColumn} onChange={e => setSelectedColumn(e.target.value)}>
-        <option value="physical_activity">Physical Activity</option>
-        <option value="stress_level">Stress Level</option>
-        <option value="smoking_status">Smoking Status</option>
-        <option value="alcohol_consumption">Alcohol Consumption</option>
-        <option value="obesity">Obesity</option>
-        <option value="cholesterol_level">Cholesterol Level</option>
-        <option value="sleep_hours">Sleep Hours</option>
-        <option value="air_pollution_exposure">Air Pollution</option>
-        <option value="dietary_habits">Dietary Habits</option>
-        <option value="family_history">Family History</option>
-        <option value="income_level">Income Level</option>
+        {variableOptions.map(v => (
+          <option key={v} value={v}>{v}</option>
+        ))}
+      </select>
+      
+      <br></br>
+      <label>X-Axis:</label>
+      <select value={xVar} onChange={e => setXVar(e.target.value)}>
+        {variableOptions.map(v => (
+          <option key={v} value={v}>{v}</option>
+        ))}
+      </select>
+
+      <br></br>
+      <label>Y-Axis:</label>
+      <select value={yVar} onChange={e => setYVar(e.target.value)}>
+        {variableOptions.map(v => (
+          <option key={v} value={v}>{v}</option>
+        ))}
       </select>
     </div>
   );
 }
+
 
 export default Filters;
