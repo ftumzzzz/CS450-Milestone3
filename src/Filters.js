@@ -8,6 +8,10 @@ function Filters({
   heatmapX, setHeatmapX,
   heatmapY, setHeatmapY
 }) {
+  const pieVariableOptions = [
+    "stress_level", "obesity", "physical_activity", "alcohol_consumption", "income_level",
+    "smoking_status", "dietary_habits", "family_history"
+  ];
   const variableOptions = [
     "age", "stress_level", "sleep_hours", "cholesterol_level",
     "obesity", "physical_activity", "alcohol_consumption", "income_level",
