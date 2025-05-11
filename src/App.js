@@ -11,6 +11,8 @@ function App() {
   const [data, setData] = useState([]);
   const [age, setAge] = useState(50);
   const [selectedColumn, setSelectedColumn] = useState("physical_activity");
+  const [xVar, setXVar] = useState("cholesterol_level");
+  const [yVar, setYVar] = useState("stress_level");
 
   useEffect(() => {
     d3.csv(process.env.PUBLIC_URL + "/heart_attack_prediction_indonesia.csv", d => ({
@@ -61,6 +63,7 @@ function App() {
       })(),
       obesity: +d.obesity,
       cholesterol_level: +d.cholesterol_level,
+      heart_attack: +d.heart_attack,
     })).then(parsed =>{
       console.log("Parsed Data:", parsed);
       setData(parsed);
@@ -77,12 +80,17 @@ function App() {
       </header>
       <div className="dashboard">
         <div className="left-panel">
-          <Filters age={age} setAge={setAge} selectedColumn={selectedColumn} setSelectedColumn={setSelectedColumn} />
+          <Filters 
+          age={age} setAge={setAge} 
+          selectedColumn={selectedColumn} setSelectedColumn={setSelectedColumn}
+          xVar={xVar} setXVar={setXVar}
+          yVar={yVar} setYVar={setYVar}
+          />
         </div>
         <div className="right-panel">
           <div className="top-chart">
             <Heatmap data={filteredData} />
-            <ScatterPlot data={filteredData} />
+            <ScatterPlot data={filteredData} xVar={xVar} yVar={yVar} />
           </div>
           <div className="bottom-charts">
             <PieChart data={filteredData} selectedColumn={selectedColumn} />

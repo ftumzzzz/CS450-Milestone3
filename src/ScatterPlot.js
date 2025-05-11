@@ -1,34 +1,40 @@
 import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 
-function ScatterPlot({ data }) {
+function ScatterPlot({ data, xVar, yVar }) {
   const svgRef = useRef();
 
   useEffect(() => {
     const svg = d3.select(svgRef.current);
-    svg.selectAll("*").remove(); // Clear previous render
+    svg.selectAll("*").remove();
+
+    const tooltip = d3.select(svgRef.current.parentNode)
+      .append("div")
+      .style("position", "absolute")
+      .style("visibility", "hidden")
+      .style("padding", "4px 8px")
+      .style("background", "white")
+      .style("border", "1px solid #ccc")
+      .style("font-size", "12px");
 
     const width = 400;
     const height = 300;
     const margin = { top: 20, right: 30, bottom: 40, left: 50 };
 
-    // Filter out invalid data
-    const filtered = data.filter(
-      d => !isNaN(d.sleep_hours) && !isNaN(d.stress_level)
+    const filtered = data.filter(d =>
+      !isNaN(d[xVar]) && !isNaN(d[yVar])
     );
 
-    // Scales
     const x = d3.scaleLinear()
-      .domain([0, d3.max(filtered, d => d.sleep_hours) || 10])
+      .domain([0, d3.max(filtered, d => d[xVar]) || 10])
       .range([margin.left, width - margin.right]);
 
     const y = d3.scaleLinear()
-      .domain([0, d3.max(filtered, d => d.stress_level) || 10])
+      .domain([0, d3.max(filtered, d => d[yVar]) || 10])
       .range([height - margin.bottom, margin.top]);
 
     svg.attr("width", width).attr("height", height);
 
-    // Axes
     svg.append("g")
       .attr("transform", `translate(0, ${height - margin.bottom})`)
       .call(d3.axisBottom(x));
@@ -37,13 +43,12 @@ function ScatterPlot({ data }) {
       .attr("transform", `translate(${margin.left}, 0)`)
       .call(d3.axisLeft(y));
 
-    // Axis labels
     svg.append("text")
       .attr("x", width / 2)
       .attr("y", height - 5)
       .attr("text-anchor", "middle")
       .style("font-size", "12px")
-      .text("Hours of Sleep");
+      .text(xVar.replaceAll("_", " "));
 
     svg.append("text")
       .attr("x", -height / 2)
@@ -51,21 +56,36 @@ function ScatterPlot({ data }) {
       .attr("transform", "rotate(-90)")
       .attr("text-anchor", "middle")
       .style("font-size", "12px")
-      .text("Stress Level");
+      .text(yVar.replaceAll("_", " "));
 
-    // Dots
     svg.selectAll("circle")
       .data(filtered)
       .enter()
       .append("circle")
-      .attr("cx", d => x(d.sleep_hours))
-      .attr("cy", d => y(d.stress_level))
+      .attr("cx", d => x(d[xVar]))
+      .attr("cy", d => y(d[yVar]))
       .attr("r", 5)
-      .attr("fill", "#4682b4");
+      .attr("fill", d => d.heart_attack === 1 ? "#e41a1c" : "#377eb8")
+      .attr("opacity", 0.7)
+      .on("mouseover", (event, d) => {
+        tooltip
+          .style("visibility", "visible")
+          .text(`${xVar}: ${d[xVar]}, ${yVar}: ${d[yVar]}, Heart Attack: ${d.heart_attack ? "Yes" : "No"}`);
+      })
+      .on("mousemove", (event) => {
+        tooltip
+          .style("top", `${event.pageY - 30}px`)
+          .style("left", `${event.pageX + 10}px`);
+      })
+      .on("mouseout", () => {
+        tooltip.style("visibility", "hidden");
+      });
 
-  }, [data]);
+
+  }, [data, xVar, yVar]);
 
   return <svg ref={svgRef}></svg>;
 }
+
 
 export default ScatterPlot;
