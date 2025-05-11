@@ -13,6 +13,9 @@ function App() {
   const [selectedColumn, setSelectedColumn] = useState("physical_activity");
   const [xVar, setXVar] = useState("cholesterol_level");
   const [yVar, setYVar] = useState("stress_level");
+  const [heatmapX, setHeatmapX] = useState("physical_activity");
+  const [heatmapY, setHeatmapY] = useState("stress_level");
+
 
   useEffect(() => {
     d3.csv(process.env.PUBLIC_URL + "/heart_attack_prediction_indonesia.csv", d => ({
@@ -85,11 +88,13 @@ function App() {
           selectedColumn={selectedColumn} setSelectedColumn={setSelectedColumn}
           xVar={xVar} setXVar={setXVar}
           yVar={yVar} setYVar={setYVar}
+          heatmapX={heatmapX} setHeatmapX={setHeatmapX}
+          heatmapY={heatmapY} setHeatmapY={setHeatmapY}
           />
         </div>
         <div className="right-panel">
           <div className="top-chart">
-            <Heatmap data={filteredData} />
+          <Heatmap data={filteredData} xVar={heatmapX} yVar={heatmapY} />
             <ScatterPlot data={filteredData} xVar={xVar} yVar={yVar} />
           </div>
           <div className="bottom-charts">

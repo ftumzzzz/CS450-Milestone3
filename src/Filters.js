@@ -4,7 +4,9 @@ function Filters({
   age, setAge,
   selectedColumn, setSelectedColumn,
   xVar, setXVar,
-  yVar, setYVar
+  yVar, setYVar,
+  heatmapX, setHeatmapX,
+  heatmapY, setHeatmapY
 }) {
   const variableOptions = [
     "age", "stress_level", "sleep_hours", "cholesterol_level",
@@ -15,8 +17,22 @@ function Filters({
   return (
     <div>
       <h2>Filters</h2>
+      <h3>Pie Chart Controller</h3>
 
-      <label>Age Range:</label>
+      {/* Pie Chart Column Selection */}
+      <label>Column of Interest:</label>
+      <select value={selectedColumn} onChange={e => setSelectedColumn(e.target.value)}>
+        {variableOptions.map(v => (
+          <option key={v} value={v}>{v}</option>
+        ))}
+      </select>
+
+      <hr />
+
+      <h3>Scatterplot Controller</h3>
+
+      {/* Age Slider (moved here) */}
+      <label>Age Range: </label>
       <input
         type="range"
         min="10"
@@ -26,24 +42,38 @@ function Filters({
       />
       <p>Age ≤ {age}</p>
 
-      <label>Column of Interest:</label>
-      <select value={selectedColumn} onChange={e => setSelectedColumn(e.target.value)}>
-        {variableOptions.map(v => (
-          <option key={v} value={v}>{v}</option>
-        ))}
-      </select>
-      
-      <br></br>
-      <label>X-Axis:</label>
+      {/* Scatterplot X and Y */}
+      <label>X-Axis: </label>
       <select value={xVar} onChange={e => setXVar(e.target.value)}>
         {variableOptions.map(v => (
           <option key={v} value={v}>{v}</option>
         ))}
       </select>
 
-      <br></br>
-      <label>Y-Axis:</label>
+      <br />
+
+      <label>Y-Axis: </label>
       <select value={yVar} onChange={e => setYVar(e.target.value)}>
+        {variableOptions.map(v => (
+          <option key={v} value={v}>{v}</option>
+        ))}
+      </select>
+
+      <hr />
+
+      <h3>Heatmap Controller</h3>
+
+      <label>X-Axis: </label>
+      <select value={heatmapX} onChange={e => setHeatmapX(e.target.value)}>
+        {variableOptions.map(v => (
+          <option key={v} value={v}>{v}</option>
+        ))}
+      </select>
+
+      <br />
+
+      <label>Y-Axis: </label>
+      <select value={heatmapY} onChange={e => setHeatmapY(e.target.value)}>
         {variableOptions.map(v => (
           <option key={v} value={v}>{v}</option>
         ))}
@@ -51,6 +81,5 @@ function Filters({
     </div>
   );
 }
-
 
 export default Filters;
