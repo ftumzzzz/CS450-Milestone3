@@ -29,7 +29,7 @@ function App() {
       })(),
       smoking_status: (() => {
         if (d.smoking_status === "Never") return 0;
-        if (d.smoking_status === "Former") return 1;
+        if (d.smoking_status === "Past") return 1;
         if (d.smoking_status === "Current") return 2;
         return null;
       })(),
@@ -41,9 +41,9 @@ function App() {
       })(),
       sleep_hours: +d.sleep_hours,
       air_pollution: (() => {
-        if (d.air_pollution === "Low") return 0;
-        if (d.air_pollution === "Moderate") return 1;
-        if (d.air_pollution === "High") return 2;
+        if (d.air_pollution_exposure === "Low") return 0;
+        if (d.air_pollution_exposure === "Moderate") return 1;
+        if (d.air_pollution_exposure === "High") return 2;
         return null;
       })(),
       income_level: (() => {
