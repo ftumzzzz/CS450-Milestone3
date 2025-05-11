@@ -15,17 +15,37 @@ function App() {
   useEffect(() => {
     d3.csv(process.env.PUBLIC_URL + "/heart_attack_prediction_indonesia.csv", d => ({
       age: +d.age,
-      physical_activity: +d.physical_activity,
-      stress_level: +d.stress_level,
+      physical_activity: (() => {
+        if (d.physical_activity === "Low") return 0;
+        if (d.physical_activity === "Moderate") return 1;
+        if (d.physical_activity === "High") return 2;
+        return null;
+      })(),
+      stress_level: (() => {
+        if (d.stress_level === "Low") return 0;
+        if (d.stress_level === "Moderate") return 1;
+        if (d.stress_level === "High") return 2;
+        return null;
+      })(),
       smoking_status: (() => {
         if (d.smoking_status === "Never") return 0;
         if (d.smoking_status === "Former") return 1;
         if (d.smoking_status === "Current") return 2;
         return null;
       })(),
-      alcohol_consumption: +d.alcohol_consumption,
+      alcohol_consumption: (() => {
+        if (d.alcohol_consumption === "None") return 0;
+        if (d.alcohol_consumption === "Moderate") return 1;
+        if (d.alcohol_consumption === "High") return 2;
+        return null;
+      })(),
       sleep_hours: +d.sleep_hours,
-      air_pollution: +d.air_pollution_exposure,
+      air_pollution: (() => {
+        if (d.air_pollution === "Low") return 0;
+        if (d.air_pollution === "Moderate") return 1;
+        if (d.air_pollution === "High") return 2;
+        return null;
+      })(),
       income_level: (() => {
         if (d.income_level === "Low") return 0;
         if (d.income_level === "Middle") return 1;
@@ -48,7 +68,7 @@ function App() {
   }, []);
   
   const filteredData = data.filter(d => d.age <= age);
-
+  console.log("Filtered Data:", filteredData);
 
   return (
     <div className="dashboard-container">
