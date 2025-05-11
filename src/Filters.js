@@ -22,20 +22,14 @@ function Filters({
     <div>
       <h2>Filters</h2>
       <h3>Pie Chart Controller</h3>
-
-      {/* Pie Chart Column Selection */}
-      <label>Column of Interest:</label>
+      <label>Column of Interest: </label>
       <select value={selectedColumn} onChange={e => setSelectedColumn(e.target.value)}>
         {pieVariableOptions.map(v => (
           <option key={v} value={v}>{v}</option>
         ))}
       </select>
-
       <hr />
-
       <h3>Scatterplot Controller</h3>
-
-      {/* Age Slider (moved here) */}
       <label>Age Range: </label>
       <input
         type="range"
@@ -45,8 +39,6 @@ function Filters({
         onChange={e => setAge(+e.target.value)}
       />
       <p>Age ≤ {age}</p>
-
-      {/* Scatterplot X and Y */}
       <label>X-Axis: </label>
       <select value={xVar} onChange={e => setXVar(e.target.value)}>
         {variableOptions.map(v => (
@@ -66,16 +58,13 @@ function Filters({
       <hr />
 
       <h3>Heatmap Controller</h3>
-
       <label>X-Axis: </label>
       <select value={heatmapX} onChange={e => setHeatmapX(e.target.value)}>
         {variableOptions.map(v => (
           <option key={v} value={v}>{v}</option>
         ))}
       </select>
-
       <br />
-
       <label>Y-Axis: </label>
       <select value={heatmapY} onChange={e => setHeatmapY(e.target.value)}>
         {variableOptions.map(v => (

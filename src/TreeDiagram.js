@@ -3,11 +3,10 @@ import * as d3 from 'd3';
 
 function TreeDiagram() {
   const svgRef = useRef();
-
   useEffect(() => {
     const data = {
       name: "Heart Attack Risk",
-      children: [
+      children:[
         {
           name: "Smoker",
           children: [
@@ -23,14 +22,14 @@ function TreeDiagram() {
         },
         {
           name: "Non-Smoker",
-          children: [
+          children:[
             {
               name: "Good Diet",
-              children: [{ name: "Lower Risk" }]
+              children:[{ name:"Lower Risk" }]
             },
             {
               name: "Regular Exercise",
-              children: [{ name: "Lower Risk" }]
+              children:[{ name: "Lower Risk" }]
             }
           ]
         }
@@ -39,12 +38,10 @@ function TreeDiagram() {
 
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
-
     const width = 600;
     const height = 500;
-
     const root = d3.hierarchy(data);
-    const treeLayout = d3.tree().nodeSize([70, 60]); // closer spacing
+    const treeLayout = d3.tree().nodeSize([70, 60]);
     treeLayout(root);
 
     const nodes = root.descendants();
@@ -62,7 +59,6 @@ function TreeDiagram() {
       .append("g")
       .attr("transform", `translate(${offsetX}, 40)`);
 
-    // Links
     g.selectAll("line")
       .data(root.links())
       .enter()
@@ -73,7 +69,6 @@ function TreeDiagram() {
       .attr("y2", d => d.target.y)
       .attr("stroke", "#999");
 
-    // Rectangles
     g.selectAll("rect")
       .data(nodes)
       .enter()
@@ -86,7 +81,6 @@ function TreeDiagram() {
       .attr("stroke", "#333")
       .attr("rx", 6);
 
-    // Labels
     g.selectAll("text")
       .data(nodes)
       .enter()
