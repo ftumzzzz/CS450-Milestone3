@@ -64,7 +64,7 @@ function PieChart({ data, selectedColumn }) {
 
     svg.append("text")
       .attr("x", width / 2)
-      .attr("y", 20)
+      .attr("y", 13)
       .attr("text-anchor", "middle")
       .style("font-size", "14px")
       .style("font-weight", "bold")
