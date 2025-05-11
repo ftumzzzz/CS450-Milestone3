@@ -94,7 +94,7 @@ function App() {
         </div>
         <div className="right-panel">
           <div className="top-chart">
-          <Heatmap data={filteredData} xVar={heatmapX} yVar={heatmapY} />
+            <Heatmap data={filteredData} xVar={heatmapX} yVar={heatmapY} />
             <ScatterPlot data={filteredData} xVar={xVar} yVar={yVar} />
           </div>
           <div className="bottom-charts">

@@ -35,6 +35,14 @@ function ScatterPlot({ data, xVar, yVar }) {
 
     svg.attr("width", width).attr("height", height);
 
+    svg.append("text")
+      .attr("x", width / 2)
+      .attr("y", 10)
+      .attr("text-anchor", "middle")
+      .style("font-size", "16px")
+      .style("font-weight", "bold")
+      .text(`${xVar.replaceAll("_", " ")} vs ${yVar.replaceAll("_", " ")}`);
+
     svg.append("g")
       .attr("transform", `translate(0, ${height - margin.bottom})`)
       .call(d3.axisBottom(x));

@@ -49,6 +49,14 @@ function TreeDiagram() {
     const maxX = d3.max(nodes, d => d.x);
     const offsetX = (width - (maxX - minX)) / 2 - minX;
 
+    svg.append("text")
+      .attr("x", width / 2)
+      .attr("y", 10)
+      .attr("text-anchor", "middle")
+      .style("font-size", "12px")
+      .style("font-weight", "bold")
+      .text("Factors Influencing Heart Attack Risk");
+
     const g = svg
       .attr("width", width)
       .attr("height", height)
