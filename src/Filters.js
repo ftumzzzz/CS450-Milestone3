@@ -6,6 +6,10 @@ function Filters({
   xVar, setXVar,
   yVar, setYVar
 }) {
+  const pieVariableOptions = [
+    "stress_level", "obesity", "physical_activity", "alcohol_consumption", "income_level",
+    "smoking_status", "dietary_habits", "family_history"
+  ];
   const variableOptions = [
     "age", "stress_level", "sleep_hours", "cholesterol_level",
     "obesity", "physical_activity", "alcohol_consumption", "income_level",
@@ -28,7 +32,7 @@ function Filters({
 
       <label>Column of Interest:</label>
       <select value={selectedColumn} onChange={e => setSelectedColumn(e.target.value)}>
-        {variableOptions.map(v => (
+        {pieVariableOptions.map(v => (
           <option key={v} value={v}>{v}</option>
         ))}
       </select>
